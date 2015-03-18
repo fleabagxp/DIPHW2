@@ -1,0 +1,51 @@
+img = imread('D:\Users\fleabag\Documents\MATLAB\Image\cross.pgm');
+
+subplot(2,2,1)
+imshow(img);
+title('PGM');
+
+
+cutoff = 50;
+[M,N]=size(img);
+F = fft2(img);
+
+u=0:(M-1);
+v=0:(N-1);
+
+dx=find(u>M/2);
+dy=find(v>N/2);
+
+u(dx) = u(dx)-M;
+v(dy) = v(dy)-M;
+
+[U,V] = meshgrid(u,v);
+D=sqrt(U.^2+V.^2);
+
+H=double(D<=cutoff10);
+HH=double(D<=cutoff30);
+H=double(D<=cutoff50);
+G=H.*F;
+GG=H.*F;
+GGG=H.*F;
+lp=real(ifft2(double(G)));
+
+subplot(2,2,2)
+imshow(lp,[]); 
+title('Ideal Low Pass Filter cutoff=10');
+
+subplot(2,2,3)
+imshow(lp,[]); 
+title('Ideal Low Pass Filter cutoff=30');
+
+subplot(2,2,4)
+imshow(lp,[]); 
+title('Ideal Low Pass Filter cutoff=50');
+
+
+
+
+
+
+
+
+
